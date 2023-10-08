@@ -15,7 +15,7 @@ export class Coffee {
   @Column()
   name: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   description: string;
 
   @Column()

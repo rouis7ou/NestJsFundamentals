@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Coffee } from './entities/coffee.entity';
 import { DataSource, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +7,9 @@ import { UpdateCoffeeDto } from './dto/update-coffeeédto/update-coffee.dto';
 import { Flavor } from './entities/flavor.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity/event.entity';
+import { COFFEE_BRANDS } from './coffees.constants';
+import { ConfigService, ConfigType } from '@nestjs/config';
+import coffeesConfig from './config/coffees.config';
 
 @Injectable()
 export class CoffeesService {
@@ -16,7 +19,17 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
-  ) {}
+    @Inject(COFFEE_BRANDS) coffeeBrands: string[],
+    private readonly configService: ConfigService,
+    @Inject(coffeesConfig.KEY)
+    private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
+  ) {
+    // const databaseHost = this.configService.get('database.host', 'localhost');
+    //     console.log(databaseHost);
+    //     const coffeesConfig = this.configService.get('coffees.foo');
+    //     console.log(coffeesConfig);
+    console.log(coffeesConfiguration.foo);
+  }
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
     return this.coffeeRepository.find({
@@ -86,11 +99,11 @@ export class CoffeesService {
       const recommendEvent = new Event();
       recommendEvent.name = 'recommend_coffee';
       recommendEvent.type = 'coffee';
-      recommendEvent.payload = {coffeeId: coffee.id}
+      recommendEvent.payload = { coffeeId: coffee.id };
 
-      await queryRunner.manager.save(coffee); 
+      await queryRunner.manager.save(coffee);
       await queryRunner.manager.save(recommendEvent);
-  
+
       await queryRunner.commitTransaction();
     } catch (err) {
       await queryRunner.rollbackTransaction();
