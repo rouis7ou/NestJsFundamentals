@@ -7,19 +7,17 @@ import {
   Patch,
   Post,
   Query,
-  SetMetadata,
-  UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
-import { Public } from 'src/common/decorators/public.decorator';
-import { resolve } from 'path';
-import { ParseIntPipe } from 'src/common/pipes/parse-int/parse-int.pipe';
-import { Protocol } from 'src/common/decorators/protocol.decorator';
-import { ApiForbiddenResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto/pagination-query.dto';
+import { Public } from '../common/decorators/public.decorator';
+//import { resolve } from 'path';
+import { ParseIntPipe } from '../common/pipes/parse-int/parse-int.pipe';
+import { Protocol } from '../common/decorators/protocol.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Coffees')
 @Controller('coffees')

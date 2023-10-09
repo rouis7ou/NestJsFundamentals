@@ -1,4 +1,4 @@
-import { Module, ValidationPipe } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeesModule } from './coffees/coffees.module';
@@ -8,7 +8,7 @@ import { CoffeeRatingService } from './coffee-rating/coffee-rating.service';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import appConfig from './config/app.config';
-import { APP_PIPE } from '@nestjs/core';
+//import { APP_PIPE } from '@nestjs/core';
 import { CommonModule } from './common/common.module';
 
 @Module({

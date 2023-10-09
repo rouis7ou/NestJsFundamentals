@@ -1,15 +1,15 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Coffee } from './entities/coffee.entity';
 import { DataSource, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCoffeeDto } from './dto/create-coffee.dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
 import { Flavor } from './entities/flavor.entity';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
-import { Event } from 'src/events/entities/event.entity/event.entity';
-import { COFFEE_BRANDS } from './coffees.constants';
-import { ConfigService, ConfigType } from '@nestjs/config';
-import coffeesConfig from './config/coffees.config';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto/pagination-query.dto';
+import { Event } from '../events/entities/event.entity/event.entity';
+//import { COFFEE_BRANDS } from './coffees.constants';
+//import { ConfigType } from '@nestjs/config';
+//import coffeesConfig from './config/coffees.config';
 
 @Injectable()
 export class CoffeesService {
@@ -18,17 +18,16 @@ export class CoffeesService {
     private readonly coffeeRepository: Repository<Coffee>,
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
-    private readonly dataSource: DataSource,
-    @Inject(COFFEE_BRANDS) coffeeBrands: string[],
-    private readonly configService: ConfigService,
-    @Inject(coffeesConfig.KEY)
-    private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
-  ) {
+    private readonly dataSource: DataSource, //@Inject(COFFEE_BRANDS) coffeeBrands: string[],
+    //@Inject(coffeesConfig.KEY)
+  ) //private readonly configService: ConfigService,
+  //private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
+  {
     // const databaseHost = this.configService.get('database.host', 'localhost');
     //     console.log(databaseHost);
     //     const coffeesConfig = this.configService.get('coffees.foo');
     //     console.log(coffeesConfig);
-    console.log(coffeesConfiguration.foo);
+    //console.log(coffeesConfiguration.foo);
   }
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
